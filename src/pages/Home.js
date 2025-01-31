@@ -489,7 +489,7 @@ function Home() {
                         true
                     )
                 })
-                setRecentActivityState('Signed in ' + name)
+                setRecentActivityState('Signed in' + name)
                 setTimeout(() => {
                     setRecentActivityState('')
                 }, 5000)

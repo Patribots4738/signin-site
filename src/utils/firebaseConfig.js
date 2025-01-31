@@ -60,5 +60,5 @@ export const setData = async (
     path += `/${state}`
 
     // Now, set the data using the modified path
-    set(ref(db, path), value)
+    //set(ref(db, path), value)
 }

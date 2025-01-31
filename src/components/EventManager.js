@@ -195,7 +195,7 @@ function EventManager(input, isStudent = true) {
 
         return { hours, minutes };
     }
-
+    
     const eventInputs = (
         <div className="pair">
             <input
