@@ -17,15 +17,30 @@ const DateSelector = ({onSubmit}) => {
         onSubmit(newDate);
     }
 
-    const onMonthChange = (month) => {
-        const newDate = new Date(year, month, day);
-        setCurrentDate(newDate);
-        onSubmit(newDate);
-    }
+    const onMonthChange = (newMonth) => {
+    // Get the last day of the target month
+    const lastDayOfNewMonth = new Date(year, newMonth + 1, 0).getDate();
+    // Use the smaller value: the current day or the last day of the new month
+    const adjustedDay = Math.min(day, lastDayOfNewMonth);
+    
+    const newDate = new Date(year, newMonth, adjustedDay);
+    setCurrentDate(newDate);
+    onSubmit(newDate);
+}
 
     const pushDay = (days, day, monthOffset = 0, className = '') => {
-        const today = new Date(Date.now()).getDate();
-        const isToday = day === today && monthOffset === 0;
+        const now = new Date();
+        
+        // 1. Create a date object for the specific day we are rendering.
+        // This handles month/year rollovers (like going from Dec to Jan) automatically.
+        const renderedDate = new Date(year, month + monthOffset, day);
+
+        // 2. Compare the rendered day, month, and year against the actual "today".
+        const isToday = 
+            renderedDate.getDate() === now.getDate() &&
+            renderedDate.getMonth() === now.getMonth() &&
+            renderedDate.getFullYear() === now.getFullYear();
+
         days.push(
             <td key={`${monthOffset}-${day}`}>
                 <button
